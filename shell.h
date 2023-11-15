@@ -35,6 +35,7 @@ char *_strncpy(char *dest, const char *src, int n);
 char *path_handler(char **rgv, char *cmad);
 char *spacetrim(char *cmad);
 int stringlen(char *s);
+void sig_handler(int nu);
 
 /*External Variables*/
 extern char **environ;

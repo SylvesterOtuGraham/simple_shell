@@ -6,15 +6,25 @@
  */
 int intlen(int n)
 {
-unsigned int number = (n < 0) ? -n : n;
-int leng = 1;
+	unsigned int num;
+	int leng = 1;
 
-while (number > 9)
-{
-leng++;
-number /= 10;
-}
-return ((n < 0) ? leng + 1 : leng);
+	if (n < 0)
+	{
+		leng++;
+		num = n * -1;
+	}
+	else
+	{
+		num = n;
+	}
+	while (num > 9)
+	{
+		leng++;
+		num = num / 10;
+	}
+
+	return (leng);
 }
 /**
  * _itoa - a func that .. later
@@ -23,50 +33,58 @@ return ((n < 0) ? leng + 1 : leng);
  */
 char *_itoa(int num)
 {
-int isNegative = (num < 0) ? 1 : 0;
-int length = intlen(num);
-char *buff = (char *)malloc(length + isNegative + 1);
-if (!buff)
-{
-return (NULL);
-}
-if (isNegative)
-{
-buff[0] = '-';
-num *= -1;
-}
-{
-int i;
-for (i = length + isNegative - 1; i >= isNegative; i--)
-{
-buff[i] = '0' + (num % 10);
-num /= 10;
-}
-}
-buff[length + isNegative] = '\0';
-return (buff);
+	char *buff;
+	size_t  n;
+	int leng = intlen(num);
+
+	buff = malloc(leng + 1);
+	if (!buff)
+	{
+		return (NULL);
+	}
+	buff[leng] = '\0';
+	if (num < 0)
+	{
+		n = num * -1;
+		*buff = '-';
+	}
+	else
+		n = num;
+	leng--;
+
+	do {
+		*(buff + leng) = (n % 10) + '0';
+		n /= 10;
+		leng--;
+	} while (n > 0);
+		return (buff);
 }
 /**
- *error_handler -  Handles errors in the program.
- *and a string representing the current command.
- *@n: Pointer to a 'denum' structure.
- *@argv: Array of strings representing command-line arguments.
- *@cmad: A string representing the current command.
- *@return void
+ * error - a function that run command
+ * @n: argument
+ * @argv: arv argument
+ * @cmd: the command.
+ * Return: void.
  */
-
-void error_handler(denum *n, char **argv, char *cmad)
+void error_handler(denum *n, char **argv, char *cmd)
 {
-char *cnt_str = _itoa(n->cnt);
-int length = stringlen(argv[0]) + stringlen(cmad) + stringlen(cnt_str) + 17;
-char *errmsg = malloc(length);
-if (!errmsg)
-{
-return;
-}
-snprintf(errmsg, length, "%s:%d:%s:%s:Nrrr", argv[0], n->cnt, cmad, cnt_str);
-write(STDOUT_FILENO, errmsg, length - 1); /*Exclude the null terminator*/
-free(errmsg);
-}
+	int leng;
+	char *errmsg, *cnt_str;
 
-
+	cnt_str = _itoa(n->cnt);
+	leng = stringlen(argv[0]) + stringlen(cmd) + stringlen(cnt_str) + 17;
+	errmsg = malloc(leng);
+	if (!errmsg)
+	{
+		return;
+	}
+	_stringcmp(errmsg, argv[0]);
+	_strconcat(errmsg, ": ");
+	_strconcat(errmsg, cnt_str);
+	_strconcat(errmsg, ": ");
+	_strconcat(errmsg, cmd);
+	_strconcat(errmsg, ": not found\n");
+	_strconcat(errmsg, "\0");
+	write(STDOUT_FILENO, errmsg, leng);
+	free(errmsg);
+}
