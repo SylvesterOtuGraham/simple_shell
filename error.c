@@ -1,90 +1,90 @@
 #include "shell.h"
 /**
- * intlen - a func that ... later
- * @n: a parameter
+ * intleng - a func that ... later
+ * @a: a parameter
  * Return: the lenth.
  */
-int intlen(int n)
+int intleng(int a)
 {
-	unsigned int num;
-	int len = 1;
+	unsigned int numd;
+	int leng = 1;
 
-	if (n < 0)
+	if (a < 0)
 	{
-		len++;
-		num = n * -1;
+		leng++;
+		numd = a * -1;
 	}
 	else
 	{
-		num = n;
+		numd = a;
 	}
-	while (num > 9)
+	while (numd > 9)
 	{
-		len++;
-		num = num / 10;
+		leng++;
+		numd = numd / 10;
 	}
 
-	return (len);
+	return (leng);
 }
 /**
- * _itoa - a func that .. later
- * @num: a passing param.
+ * _sis - a func that .. later
+ * @numd: a passing param.
  * Return: buff if not NULL.
  */
-char *_itoa(int num)
+char *_sis(int numd)
 {
 	char *buff;
-	size_t  n;
-	int len = intlen(num);
+	size_t  a;
+	int leng = intleng(numd);
 
-	buff = malloc(len + 1);
+	buff = malloc(leng + 1);
 	if (!buff)
 	{
 		return (NULL);
 	}
-	buff[len] = '\0';
-	if (num < 0)
+	buff[leng] = '\0';
+	if (numd < 0)
 	{
-		n = num * -1;
+		a = numd * -1;
 		*buff = '-';
 	}
 	else
-		n = num;
-	len--;
+		a = numd;
+	leng--;
 
 	do {
-		*(buff + len) = (n % 10) + '0';
-		n /= 10;
-		len--;
-	} while (n > 0);
+		*(buff + leng) = (a % 10) + '0';
+		a /= 10;
+		leng--;
+	} while (a > 0);
 		return (buff);
 }
 /**
- * geterror - a function that run command
- * @n: argument
- * @arv: arv argument
- * @cmd: the command.
+ * error_handler - a function that run command
+ * @a: argument
+ * @argv: argv argument
+ * @cmad: the command.
  * Return: void.
  */
-void geterror(denum *n, char **arv, char *cmd)
+void error_handler(denum *a, char **argv, char *cmad)
 {
-	int len;
+	int leng;
 	char *errmsg, *cnt_str;
 
-	cnt_str = _itoa(n->cnt);
-	len = _strlen(arv[0]) + _strlen(cmd) + _strlen(cnt_str) + 17;
-	errmsg = malloc(len);
+	cnt_str = _sis(a->cnt);
+	leng = _stringlen(argv[0]) + _stringlen(cmad) + _stringlen(cnt_str) + 17;
+	errmsg = malloc(leng);
 	if (!errmsg)
 	{
 		return;
 	}
-	_strcpy(errmsg, arv[0]);
-	_strcat(errmsg, ": ");
-	_strcat(errmsg, cnt_str);
-	_strcat(errmsg, ": ");
-	_strcat(errmsg, cmd);
-	_strcat(errmsg, ": not found\n");
-	_strcat(errmsg, "\0");
-	write(STDOUT_FILENO, errmsg, len);
+	_stringcopy(errmsg, argv[0]);
+	_stringconcat(errmsg, ": ");
+	_stringconcat(errmsg, cnt_str);
+	_stringconcat(errmsg, ": ");
+	_stringconcat(errmsg, cmad);
+	_stringconcat(errmsg, ": not found\n");
+	_stringconcat(errmsg, "\0");
+	write(STDOUT_FILENO, errmsg, leng);
 	free(errmsg);
 }

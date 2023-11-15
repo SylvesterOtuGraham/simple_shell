@@ -1,26 +1,26 @@
 #include "shell.h"
 /**
- * handle_path - handle the path function
+ * path_handler - handle the path function
  * @rgv: rgv argument
- * @cmd: command set by the user
+ * @cmad: command set by the user
  * Return: command for exec
  */
-char *handle_path(char **rgv, char *cmd)
+char *path_handler(char **rgv, char *cmad)
 {
 	char *path;
 
-	path = malloc(_strlen("/bin/") + _strlen(cmd) + 1);
+	path = malloc(_stringlen("/bin/") + _stringlen(cmad) + 1);
 	if (!path)
 	{
 		return (NULL);
 	}
-	_strcpy(path, "/bin/");
+	_stringcopy(path, "/bin/");
 
-	if (cmd[0] != '/' && cmd[0] != '.')
+	if (cmad[0] != '/' && cmad[0] != '.')
 	{
-		rgv[0] = _strcat(path, cmd);
+		rgv[0] = _stringconcat(path, cmad);
 		return (rgv[0]);
 	}
 	free(path);
-	return (cmd);
+	return (cmad);
 }

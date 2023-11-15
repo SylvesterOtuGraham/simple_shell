@@ -1,26 +1,26 @@
 #include "shell.h"
 /**
- * _strcat - This function appends the src string to the dest string
- * @dest: string agument
- * @src: string argument
+ * _stringconcat - This function appends the src string to the dest string
+ * @char_ptr1: string agument
+ * @char_ptr2: string argument
  * Return: String
  */
-char *_strcat(char *dest, char *src)
+char *_stringconcat(char *char_ptr1, char *char_ptr2)
 {
-	int len = 0, lend = 0, j;
+	int leng = 0, lend1 = 0, a;
 
-	while (src[len] != '\0')
+	while (char_ptr2[leng] != '\0')
 	{
-		len++;
+		leng++;
 	}
-	while (dest[lend] != '\0')
+	while (char_ptr1[lend1] != '\0')
 	{
-		lend++;
+		lend1++;
 	}
-	for (j = 0; j < len; j++)
+	for (a = 0; a < leng; a++)
 	{
-		dest[lend + j] = src[j];
+		char_ptr1[lend1 + a] = char_ptr2[a];
 	}
-	dest[lend + len] = '\0';
-	return (dest);
+	char_ptr1[lend1 + leng] = '\0';
+	return (char_ptr1);
 }

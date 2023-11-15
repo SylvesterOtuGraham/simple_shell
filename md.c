@@ -1,52 +1,52 @@
 #include "shell.h"
 /**
  * sig_handler - handler cntrl c
- * @num: num argument
+ * @numd: num argument
  */
-void sig_handler(int num)
+void sig_handler(int numd)
 {
-	(void)num;
-	write(STDOUT_FILENO, "\n$ ", _strlen("\n$ "));
+	(void)numd;
+	write(STDOUT_FILENO, "\n$ ", _stringlen("\n$ "));
 }
 /**
- * prompt - a shell using c
- * @arv: argument by user
+ * _prompter - a shell using c
+ * @argv: argument by user
  * @envp: envirement variable argument
- * @flg: flag argument for mode
+ * @flag: flag argument for mode
  */
-void prompt(char **arv, char **envp, bool flg)
+void _prompter(char **argv, char **envp, bool flag)
 {
-	size_t n = 0;
-	ssize_t num_c = 0;
-	char *cmd = NULL, *rgv[MAX_C];
+	size_t a = 0;
+	ssize_t num_d = 0;
+	char *cmad = NULL, *rgv[MAX_C];
 	int x/*, stat,path*/;
 
 	while (1)
 	{
-		if (flg && isatty(STDIN_FILENO))
-			write(STDOUT_FILENO, "$ ", _strlen("$ "));
+		if (flag && isatty(STDIN_FILENO))
+			write(STDOUT_FILENO, "$ ", _stringlen("$ "));
 		signal(SIGINT, sig_handler);
-		num_c = getline(&cmd, &n, stdin);
-		if (num_c == -1) /*handles the end file case*/
+		num_d = getline(&cmad, &a, stdin);
+		if (num_d == -1) /*handles the end file case*/
 		{
-			free(cmd);
+			free(cmad);
 			exit(EXIT_SUCCESS);
 		}
-		if (cmd[num_c - 1] == '\n')
-			cmd[num_c - 1] = '\0';
-		cmd = trim(cmd);
-		if (_strlen(cmd) == 0)
+		if (cmad[num_d - 1] == '\n')
+			cmad[num_d - 1] = '\0';
+		cmad = spacetrim(cmad);
+		if (_stringlen(cmad) == 0)
 			continue;
 		x = 0;
-		rgv[x] = strtok(cmd, " \n");
-		handle_exit(cmd);
-		handle_path(rgv, cmd);
+		rgv[x] = strtok(cmad, " \n");
+		exit_handler(cmad);
+		path_handler(rgv, cmad);
 		while (rgv[x])
 		{
 			x++;
 			rgv[x] = strtok(NULL, " \n");
 		}
-		runcmd(rgv, arv, envp); /* envir */
+		runcommand(rgv, argv, envp); /* envir */
 	}
-	free(cmd);
+	free(cmad);
 }

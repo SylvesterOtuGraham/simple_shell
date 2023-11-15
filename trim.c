@@ -1,26 +1,26 @@
 #include "shell.h"
 /**
- * trim - remove space
- * @cmd: comand
+ * spacetrim - remove space
+ * @cmad: comand
  * Return: cmmand
  */
-char *trim(char *cmd)
+char *spacetrim(char *cmad)
 {
 	char *cpcmd;
-	int i = 0, len;
+	int a = 0, leng;
 
-	while (cmd[i] == ' ')
-		i++;
-	len = _strlen(cmd) - i + 1;
-	cpcmd = malloc(len + 1);
+	while (cmad[a] == ' ')
+		a++;
+	leng = _stringlen(cmad) - a + 1;
+	cpcmd = malloc(leng + 1);
 	if (!cpcmd)
 	{
 		perror("Allocation Failed\n");
 		return (NULL);
 	}
-	_strncpy(cpcmd, cmd + i, len);
-	cpcmd[len] = '\0';
-	_strcpy(cmd, cpcmd);
+	_strncopy(cpcmd, cmad + a, leng);
+	cpcmd[leng] = '\0';
+	_stringcopy(cmad, cpcmd);
 	free(cpcmd);
-	return (cmd);
+	return (cmad);
 }

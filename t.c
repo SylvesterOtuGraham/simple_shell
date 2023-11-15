@@ -1,21 +1,21 @@
 #include "shell.h"
 /**
- * _strcmp - unction that compares two strings
- * @s1: first function
- * @s2: second function
+ * _stringcmp - unction that compares two strings
+ * @st0: first function
+ * @st1: second function
  * Return: val
  */
-int _strcmp(char *s1, char *s2)
+int _stringcmp(char *st0, char *st1)
 {
-	int cmp = 0;
+	int comp = 0;
 
-	while (*s1 == *s2 && *s1 != '\0')
+	while (*st0 == *st1 && *st0 != '\0')
 	{
-		s1++;
-		s2++;
+		st0++;
+		st1++;
 	}
-	if (s1 != s2)
-		cmp = *s1 - *s2;
+	if (st0 != st1)
+		comp = *st0 - *st1;
 
-	return (cmp);
+	return (comp);
 }

@@ -1,16 +1,16 @@
 #include "shell.h"
 /**
- * handle_exit - function that terminate the prog when
+ * exit_handler - function that terminate the prog when
  * user types "exit".
- * @cmd: the string to be read.
+ * @cmad: the string to be read.
  * Return: nothing.
  *
  */
-void handle_exit(char *cmd)
+void exit_handler(char *cmad)
 {
-	if (_strcmp("exit", cmd) == 0)
+	if (_stringcmp("exit", cmad) == 0)
 	{
-		free(cmd);
+		free(cmad);
 		exit(EXIT_SUCCESS);
 	}
 }
