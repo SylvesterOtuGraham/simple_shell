@@ -10,17 +10,24 @@
  */
 int _strncmp(char *str1, char *str2, int n)
 {
-while (n > 0 && *str1 && *str2 && (*str1 == *str2))
+if (*str1 == *str2 && *str1 != '\0' && n > 0)
 {
-str1++;
-str2++;
-n--;
+return (_strncmp(str1 + 1, str2 + 1, n - 1));
 }
-
-if (n == 0 || (*str1 == '\0' && *str2 == '\0'))
+else if (*str1 == '\0' && *str2 == '\0')
+{
 return (0);
-else if (*str1 > *str2)
-return (1);
-else
+}
+else if (*str1 == '\0')
+{
 return (-1);
+}
+else if (*str2 == '\0')
+{
+return (1);
+}
+else
+{
+return (*str1 - *str2);
+}
 }
