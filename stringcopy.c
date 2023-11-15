@@ -3,7 +3,7 @@
  * _strncopy - copy n char
  * @char_ptr1: string argument
  * @char_ptr2: string argument for char_ptr2
- * @a: integer argument
+ * @n: integer argument
  * Return: char_ptr1
  */
 char *_strncopy(char *char_ptr1, const char *char_ptr2, int n)
