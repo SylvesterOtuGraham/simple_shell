@@ -1,26 +1,29 @@
 #include "shell.h"
-/**
- * _stringconcat - This function appends the src string to the dest string
- * @char_ptr1: string agument
- * @char_ptr2: string argument
- * Return: String
- */
-char *_stringconcat(char *char_ptr1, char *char_ptr2)
-{
-	int leng = 0, lend1 = 0, a;
 
-	while (char_ptr2[leng] != '\0')
-	{
-		leng++;
-	}
-	while (char_ptr1[lend1] != '\0')
-	{
-		lend1++;
-	}
-	for (a = 0; a < leng; a++)
-	{
-		char_ptr1[lend1 + a] = char_ptr2[a];
-	}
-	char_ptr1[lend1 + leng] = '\0';
-	return (char_ptr1);
+/**
+ * _stringconcat - Appends the src string to the dest string
+ * @dest: Destination string
+ * @src: Source string
+ * Return: Pointer to the concatenated string
+ */
+char *_stringconcat(char *dest, const char *src)
+{
+    int dest_len = 0;
+    int src_len = 0;
+
+    while (dest[dest_len] != '\0')
+    {
+        dest_len++;
+    }
+
+    while (src[src_len] != '\0')
+    {
+        dest[dest_len + src_len] = src[src_len];
+        src_len++;
+    }
+
+    dest[dest_len + src_len] = '\0';
+
+    return dest;
 }
+

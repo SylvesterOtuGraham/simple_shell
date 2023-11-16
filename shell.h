@@ -28,7 +28,7 @@ void exit_handler(char *cmad);
 char *get_path(char *cmad);
 char **tokenize_env(char *path);
 void runcommand(char **rgv, char **argv, char **envp);
-char *_stringconcat(char *char_ptr1, char *char_ptr2);
+/*char *_stringconcat(char *char_ptr1, char *char_ptr2);*/
 int _stringcmp(char *st0, char *st1);
 int _strncmp(char *str1, char *str2, int a);
 char *_strncopy(char *char_ptr1, const char *char_ptr2, int n);
@@ -36,7 +36,7 @@ char *path_handler(char **rgv, char *cmad);
 char *spacetrim(char *cmad);
 int _stringlen(char *s);
 char *_stringcopy(char *char_ptr1, char *char_ptr2);
-
+char *_stringconcat(char *dest, const char *src);
 
 /*External Variables*/
 extern char **environ;
